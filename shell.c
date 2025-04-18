@@ -36,7 +36,7 @@ struct termios orig_termios;
 char current_input[MAX_INPUT];
 int input_pos = 0;
 
-// ======================== PATH RESOLUTION ========================
+// ======================== путь корнего каталога ========================
 
 char *resolve_path(const char *path) {
     static char resolved[PATH_MAX];
@@ -71,7 +71,7 @@ char *resolve_path(const char *path) {
     return resolved;
 }
 
-// ======================== TERMINAL FUNCTIONS ========================
+// ======================== Функции терминала ========================
 
 void disable_raw_mode() {
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios);
@@ -94,7 +94,7 @@ void clear_line() {
     fflush(stdout);
 }
 
-// ======================== HISTORY FUNCTIONS ========================
+// ======================== История команд ========================
 
 void history_add(const char *cmd) {
     if (cmd == NULL || strlen(cmd) == 0) return;
@@ -115,7 +115,7 @@ void history_add(const char *cmd) {
     cmd_history.position = cmd_history.count;
 }
 
-// ======================== INPUT HANDLING ========================
+// ======================== Режим ввода ========================
 
 void handle_arrow_up() {
     if (cmd_history.position > 0) {
@@ -186,7 +186,7 @@ char *read_input() {
     }
 }
 
-// ======================== SHELL FUNCTIONS ========================
+// ======================== Обновление оболочки ========================
 
 void update_cwd() {
     if (getcwd(cwd, sizeof(cwd)) == NULL) {
@@ -195,34 +195,22 @@ void update_cwd() {
     }
 }
 
-
-
 void print_banner() {
     printf(ORANGE "\n");
-
-    // ASCII-арт "DNS Shell"
-    printf("  ██████╗ ███╗   ██╗ ███████╗██╗  ██╗███████╗██╗     ██╗     \n");
-    printf("  ██╔══██╗████╗  ██║ ██╔════╝██║  ██║██╔════╝██║     ██║     \n");
-    printf("  ██║  ██║██╔██╗ ██║ ███████╗███████║█████╗  ██║     ██║     \n");
-    printf("  ██║  ██║██║╚██╗██║    ╚═██║██╔══██║██╔══╝  ██║     ██║     \n");
-    printf("  ██████╔╝██║ ╚████╗ ███████║██║  ██║███████╗███████╗███████╗\n");
-    printf("  ╚═════╝ ╚═╝  ╚═══╝╚══════ ╝╚═╝  ╚══════╝╚═╝  ╚═╝╚══ ══════╝\n");
+    printf("  ██████  ███    ██  ███████ ██   ██ ███████ ██      ██      \n");
+    printf("  ██   ██ ████   ██  ██      ██   ██ ██      ██      ██      \n");
+    printf("  ██   ██ ██ ██  ██  ███████ ███████ █████   ██      ██      \n");
+    printf("  ██   ██ ██  ██ ██       ██ ██   ██ ██      ██      ██      \n");
+    printf("  ██████  ██   ████  ███████ ██   ██ ███████ ███████ ███████ \n");
     printf("\n");
     printf(" Delusional Nonsense Shell\n");
-    printf(" Version: 1.0 BETA | Prapaforan Markusssss\n");
-    printf(" link on shell: https://github.com/Markussssssu/DNShell\n");
-
+    printf(" Version: 1.0 BETA | Разработчик Markusssss\n");
+    printf(" Ссылка на оболочку: https://github.com/Markussssssu/DNShell\n");
     // Адаптивная граница
     printf("\n");
     for (int i = 0; i < 60; i++) printf("▀");
     printf(RESET "\n\n");
 }
-
-
-
-
-
-
 
 void print_prompt() {
     char hostname[256] = "unknown";
@@ -289,7 +277,7 @@ void execute_command(char **args) {
     }
 }
 
-// ======================== MAIN FUNCTION ========================
+// ======================== MAIN функция ========================
 
 int main() {
     signal(SIGINT, SIG_IGN);
